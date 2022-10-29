@@ -15,6 +15,14 @@ void events(Game& game)
 	{
 		switch (game.event.type)
 		{
+		case SDL_MOUSEMOTION:
+			game.mouse.x = game.event.motion.x;
+			game.mouse.y = game.event.motion.y;
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			if ((game.rect_newgame.x + game.rect_newgame.w) >= game.mouse.x and game.mouse.x >= game.rect_newgame.x and
+				(game.rect_newgame.y + game.rect_newgame.h) >= game.mouse.y and game.mouse.y >= game.rect_newgame.y) game.flag.flag_newgame = true;
+			break;
 		case SDL_QUIT:
 			game.loop.launched = false;
 			break;
@@ -25,39 +33,50 @@ void events(Game& game)
 			case SDL_SCANCODE_A:
 			case SDL_SCANCODE_S:
 			case SDL_SCANCODE_D:
-				game.flag_move = true;
+			case SDL_SCANCODE_UP:
+			case SDL_SCANCODE_LEFT:
+			case SDL_SCANCODE_DOWN:
+			case SDL_SCANCODE_RIGHT:
+				game.flag.flag_move = true;
 				break;
 			}
 			break;
 		case SDL_KEYDOWN:
 			switch (game.event.key.keysym.scancode)
 			{
+			case SDL_SCANCODE_ESCAPE:
+				game.loop.launched = false;
+				break;
 			case SDL_SCANCODE_W:
-				if (game.flag_move) 
+			case SDL_SCANCODE_UP:
+				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose) 
 				{
 					game.direction = up;
-					game.flag_move = false;
+					game.flag.flag_move = false;
 				}
 				break;
 			case SDL_SCANCODE_A:
-				if (game.flag_move)
+			case SDL_SCANCODE_LEFT:
+				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose)
 				{
 					game.direction = left;
-					game.flag_move = false;
+					game.flag.flag_move = false;
 				}
 				break;
 			case SDL_SCANCODE_S:
-				if (game.flag_move)
+			case SDL_SCANCODE_DOWN:
+				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose)
 				{
 					game.direction = down;
-					game.flag_move = false;
+					game.flag.flag_move = false;
 				}
 				break;
 			case SDL_SCANCODE_D:
-				if (game.flag_move)
+			case SDL_SCANCODE_RIGHT:
+				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose)
 				{
 					game.direction = right;
-					game.flag_move = false;
+					game.flag.flag_move = false;
 				}
 				break;
 			}

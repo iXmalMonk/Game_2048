@@ -26,17 +26,31 @@ void gameLoop(Game& game)
 	{
 		events(game);
 
-		logicField(game);
+		if (game.loop.play)
+		{
+			logicField(game);
 
-		drawBackground(game);
+			//printField(game);
 
-		drawFieldBackground(game);
-		drawField(game);
+			drawBackground(game);
 
-		//printField(game);
+			drawFieldBackground(game);
+			drawField(game);
 
-		SDL_RenderPresent(game.renderer);
-		SDL_Delay(CLOCKS_PER_SEC / game.fps);
+			printValue(game, 2048, 2, 2, FONT_SIZE * 4);
+
+			drawScore(game);
+
+			newGameDraw(game);
+
+			if (game.flag.flag_win) drawWin(game);
+			if (game.flag.flag_lose) drawLose(game);
+
+			SDL_RenderPresent(game.renderer);
+			SDL_Delay(CLOCKS_PER_SEC / game.fps);
+		}
+
+		if (game.loop.info);
 	}
 }
 
@@ -46,13 +60,9 @@ int main()
 	system("chcp 1251");
 	system("cls");
 
-	//int time_seed = time(NULL);
-	//printf("Time seed = %i", time_seed);
-	//srand(time_seed);
 	srand(time(NULL));
-	//srand(0);
 
-	hideConsole(false);
+	hideConsole(true);
 
 	Game game;
 
@@ -60,9 +70,13 @@ int main()
 
 	game.font = TTF_OpenFont("font.ttf", FONT_SIZE);
 
-	//createField(game);
+	loadBestScore(game);
+
+	createField(game);
 
 	gameLoop(game);
+
+	saveBestScore(game);
 
 	deInit(game, 0);
 

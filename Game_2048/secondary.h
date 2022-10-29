@@ -11,4 +11,6 @@ void hideConsole(bool flag);
 
 void printValue(const Game& game, int value, int x, int y, int size);
 
+void printText(const Game& game, const char* text, int x, int y, int size, int alpha);
+
 #endif

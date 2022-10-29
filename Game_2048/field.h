@@ -13,4 +13,16 @@ void drawField(Game& game);
 
 void drawFieldBackground(Game& game);
 
+void drawScore(Game& game);
+
+void loadBestScore(Game& game);
+
+void saveBestScore(Game& game);
+
+void drawWin(const Game& game);
+
+void drawLose(const Game& game);
+
+void newGameDraw(const Game& game);
+
 #endif

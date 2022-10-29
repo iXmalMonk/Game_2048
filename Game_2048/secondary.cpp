@@ -97,3 +97,22 @@ void printValue(const Game& game, int value, int x, int y, int size)
 
 	SDL_DestroyTexture(text_texture);
 }
+
+void printText(const Game& game, const char* text, int x, int y, int size, int alpha)
+{
+	int counter = 0;
+
+	while (text[counter] != '\0') counter++;
+
+	SDL_Surface* text_surface = TTF_RenderText_Blended(game.font, text, { 0, 0, 0, Uint8(alpha) });
+
+	SDL_Rect rect = { x, y, 0.825 * counter * size, size };
+
+	SDL_Texture* text_texture = SDL_CreateTextureFromSurface(game.renderer, text_surface);
+
+	SDL_RenderCopy(game.renderer, text_texture, NULL, &rect);
+
+	SDL_FreeSurface(text_surface);
+
+	SDL_DestroyTexture(text_texture);
+}
