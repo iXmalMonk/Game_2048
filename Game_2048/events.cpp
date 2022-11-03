@@ -21,7 +21,14 @@ void events(Game& game)
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			if ((game.rect_newgame.x + game.rect_newgame.w) >= game.mouse.x and game.mouse.x >= game.rect_newgame.x and
-				(game.rect_newgame.y + game.rect_newgame.h) >= game.mouse.y and game.mouse.y >= game.rect_newgame.y) game.flag.flag_newgame = true;
+				(game.rect_newgame.y + game.rect_newgame.h) >= game.mouse.y and game.mouse.y >= game.rect_newgame.y and game.loop.play) game.flag.flag_newgame = true;
+
+			if ((game.rect_info.x + game.rect_info.w) >= game.mouse.x and game.mouse.x >= game.rect_info.x and
+				(game.rect_info.y + game.rect_info.h) >= game.mouse.y and game.mouse.y >= game.rect_info.y and game.loop.play)
+			{
+				game.loop.info = true;
+				game.loop.play = false;
+			}
 			break;
 		case SDL_QUIT:
 			game.loop.launched = false;
@@ -45,11 +52,19 @@ void events(Game& game)
 			switch (game.event.key.keysym.scancode)
 			{
 			case SDL_SCANCODE_ESCAPE:
-				game.loop.launched = false;
+				if (game.loop.play) game.loop.launched = false;
+				if (game.loop.info)
+				{
+					game.loop.play = true;
+					game.loop.info = false;
+				}
+				break;
+			case SDL_SCANCODE_R:
+				if (game.loop.play) game.flag.flag_newgame = true;
 				break;
 			case SDL_SCANCODE_W:
 			case SDL_SCANCODE_UP:
-				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose) 
+				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose and game.loop.play)
 				{
 					game.direction = up;
 					game.flag.flag_move = false;
@@ -57,7 +72,7 @@ void events(Game& game)
 				break;
 			case SDL_SCANCODE_A:
 			case SDL_SCANCODE_LEFT:
-				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose)
+				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose and game.loop.play)
 				{
 					game.direction = left;
 					game.flag.flag_move = false;
@@ -65,7 +80,7 @@ void events(Game& game)
 				break;
 			case SDL_SCANCODE_S:
 			case SDL_SCANCODE_DOWN:
-				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose)
+				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose and game.loop.play)
 				{
 					game.direction = down;
 					game.flag.flag_move = false;
@@ -73,7 +88,7 @@ void events(Game& game)
 				break;
 			case SDL_SCANCODE_D:
 			case SDL_SCANCODE_RIGHT:
-				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose)
+				if (game.flag.flag_move and !game.flag.flag_win and !game.flag.flag_lose and game.loop.play)
 				{
 					game.direction = right;
 					game.flag.flag_move = false;

@@ -91,14 +91,15 @@ struct Game
 	Mouse mouse;
 	Score score;
 	//int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
-	int field[FIELD_SIZE][FIELD_SIZE] = { {0, 0, 0, 1024},
+	int field[FIELD_SIZE][FIELD_SIZE] = { {0, 0, 0, 0},
 										  {0, 0, 0, 0},
-										  {0, 0, 0, 0},
+										  {1024, 0, 0, 0},
 										  {1024, 0, 0, 0} };
 	FieldBackground field_background;
 
 	SDL_Event event;
 	SDL_Rect rect_newgame = { FONT_SIZE * 12 - 1 - 1, FONT_SIZE * 5 - 1, int(0.825 * 8 * FONT_SIZE), FONT_SIZE };
+	SDL_Rect rect_info = { FONT_SIZE * 12 - 1 - 1, int(FONT_SIZE * 6.5) - 1, int(0.825 * 4 * FONT_SIZE), FONT_SIZE };
 	SDL_Renderer* renderer = NULL;
 	SDL_Window* window = NULL;
 

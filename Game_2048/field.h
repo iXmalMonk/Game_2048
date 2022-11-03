@@ -25,4 +25,8 @@ void drawLose(const Game& game);
 
 void newGameDraw(const Game& game);
 
+void infoDraw(const Game& game);
+
+void moreInfoDraw(const Game& game);
+
 #endif

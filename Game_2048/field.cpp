@@ -160,6 +160,40 @@ void newGameDraw(const Game& game)
 	printText(game, "NEW GAME", FONT_SIZE * 12, FONT_SIZE * 5, FONT_SIZE, 255);
 }
 
+void infoDraw(const Game& game)
+{
+	SDL_SetRenderDrawColor(game.renderer, 0, 0, 0, COLOR_ALPHA);
+
+	SDL_RenderDrawRect(game.renderer, &game.rect_info);
+
+	printText(game, "INFO", FONT_SIZE * 12, FONT_SIZE * 6.5, FONT_SIZE, 255);
+}
+
+void moreInfoDraw(const Game& game)
+{
+	SDL_SetRenderDrawColor(game.renderer, 255, 255, 255, COLOR_ALPHA);
+	SDL_RenderClear(game.renderer);
+
+	printText(game, "CONTROLS", FONT_SIZE, FONT_SIZE, FONT_SIZE, 255);
+
+	printText(game, "W", FONT_SIZE, FONT_SIZE * 3, FONT_SIZE, 255);
+	printText(game, "UP", FONT_SIZE * 6, FONT_SIZE * 3, FONT_SIZE, 255);
+
+	printText(game, "A", FONT_SIZE, FONT_SIZE * 4, FONT_SIZE, 255);
+	printText(game, "LEFT", FONT_SIZE * 6, FONT_SIZE * 4, FONT_SIZE, 255);
+
+	printText(game, "S", FONT_SIZE, FONT_SIZE * 5, FONT_SIZE, 255);
+	printText(game, "DOWN", FONT_SIZE * 6, FONT_SIZE * 5, FONT_SIZE, 255);
+
+	printText(game, "D", FONT_SIZE, FONT_SIZE * 6, FONT_SIZE, 255);
+	printText(game, "RIGHT", FONT_SIZE * 6, FONT_SIZE * 6, FONT_SIZE, 255);
+
+	printText(game, "or", FONT_SIZE * 3, FONT_SIZE * 4.25, FONT_SIZE, 255);
+
+	printText(game, "R - NEW GAME", FONT_SIZE, FONT_SIZE * 8, FONT_SIZE, 255);
+	printText(game, "ESCAPE - EXIT", FONT_SIZE, FONT_SIZE * 10, FONT_SIZE, 255);
+}
+
 void logicFieldMoveUp(Game& game)
 {
 	for (int i = 0; i < FIELD_SIZE; i++)

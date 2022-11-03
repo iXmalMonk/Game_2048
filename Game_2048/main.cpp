@@ -43,14 +43,16 @@ void gameLoop(Game& game)
 
 			newGameDraw(game);
 
+			infoDraw(game);
+
 			if (game.flag.flag_win) drawWin(game);
 			if (game.flag.flag_lose) drawLose(game);
-
-			SDL_RenderPresent(game.renderer);
-			SDL_Delay(CLOCKS_PER_SEC / game.fps);
 		}
 
-		if (game.loop.info);
+		if (game.loop.info) moreInfoDraw(game);
+
+		SDL_RenderPresent(game.renderer);
+		SDL_Delay(CLOCKS_PER_SEC / game.fps);
 	}
 }
 
